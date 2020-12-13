@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Setter
 @Getter
 @AllArgsConstructor
@@ -18,9 +16,9 @@ public class User extends Person{
 
     private String password;
 
-    private Set<Role> roles;
+    //private Set<Role> roles;
 
-    private Set<Authority> authorities;
+    //private Set<Authority> authorities;
 
 
 
