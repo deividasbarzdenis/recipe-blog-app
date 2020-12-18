@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class Person extends BaseEntity{
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments = new HashSet<>();
 
+    @Lob
     private Byte[] avatarImage;
 
     @Builder

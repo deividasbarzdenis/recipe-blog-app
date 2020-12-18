@@ -23,6 +23,17 @@
 <p th:text="'content: ' + ${person.name}"></p>
 <p th:text="'content: ' + ${person.lastName}"></p>
 <p th:text="'content: ' + ${person.email}"></p>
+
+<div class="col-md-6">
+    <img src="../../static/images/avatar.jpg"
+         th:src="@{'/person/' + ${person.id} + '/personImage'}"
+         width="200" height="200">
+</div>
+<div class="col-md-1">
+    <a class="btn btn-default" href="#"
+       th:href="@{'/person/' + ${person.id} + '/image'}" role="button">Change Image</a>
+</div>
+
 <a href="/person/new">Submit another message</a>
 </body>
 </html>
