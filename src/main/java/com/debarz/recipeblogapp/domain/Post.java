@@ -1,6 +1,6 @@
 package com.debarz.recipeblogapp.domain;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "posts")
@@ -24,11 +23,21 @@ public class Post extends BaseEntity{
     private String content;
 
     @Column(nullable = false)
-    private LocalDate creationDate = LocalDate.now();
+    private LocalDate creationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Person author;
 
     @OneToMany(mappedBy="post")
     private Set<Comment> comments = new HashSet<>();
+
+    @Builder // lombok anotacija, sukonstroukti objekta su builder() ir build() metodais
+    public Post(Long id, String title, String content, LocalDate creationDate, Person author, Set<Comment> comments) {
+        super(id);
+        this.title = title;
+        this.content = content;
+        this.creationDate = LocalDate.now();
+        this.author = author;
+        this.comments = comments;
+    }
 }

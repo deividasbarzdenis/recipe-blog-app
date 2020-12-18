@@ -4,7 +4,6 @@ import com.debarz.recipeblogapp.domain.Comment;
 import com.debarz.recipeblogapp.domain.Post;
 import com.debarz.recipeblogapp.repositories.CommentRepository;
 import com.debarz.recipeblogapp.repositories.PostRepository;
-import com.debarz.recipeblogapp.repositories.security.UserRepository;
 import com.debarz.recipeblogapp.services.PostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,6 @@ public class PostJpaService implements PostService {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
-    private final UserRepository userRepository;
 
     @Override
     public Page<Post> getAllPost(Pageable pageable) {
@@ -35,4 +33,26 @@ public class PostJpaService implements PostService {
         commentRepository.findAll().forEach(comments::add);
         return comments;
     }
+
+    @Override
+    public Post findById(Long aLong) {
+        return postRepository.findById(aLong).orElse(null);
+    }
+
+    @Override
+    public Post save(Post object) {
+        return postRepository.save(object);
+    }
+
+    @Override
+    public void delete(Post object) {
+        postRepository.delete(object);
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+        postRepository.deleteById(aLong);
+    }
+
+
 }

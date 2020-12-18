@@ -13,4 +13,11 @@ public interface PostService {
 
     Set<Comment> getAllComments();
 
+    Post findById(Long aLong);
+
+    Post save(Post object);
+
+    void delete(Post object);
+
+    void deleteById(Long aLong);
 }

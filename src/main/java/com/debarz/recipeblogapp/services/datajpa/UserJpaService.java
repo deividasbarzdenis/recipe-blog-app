@@ -1,5 +1,6 @@
 package com.debarz.recipeblogapp.services.datajpa;
 
+import com.debarz.recipeblogapp.domain.Person;
 import com.debarz.recipeblogapp.domain.security.User;
 import com.debarz.recipeblogapp.repositories.security.UserRepository;
 import com.debarz.recipeblogapp.services.UserService;
@@ -22,5 +23,15 @@ public class UserJpaService implements UserService {
         Set<User> userSet = new HashSet<>();
         userRepository.findAll().forEach(userSet::add);
         return userSet;
+    }
+
+    @Override
+    public User save(Person person) {
+        return null;
+    }
+
+    @Override
+    public Object findById(Long valueOf) {
+        return null;
     }
 }

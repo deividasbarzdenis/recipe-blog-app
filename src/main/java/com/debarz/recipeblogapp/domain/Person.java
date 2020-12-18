@@ -1,10 +1,7 @@
 package com.debarz.recipeblogapp.domain;
 
 import com.debarz.recipeblogapp.domain.security.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,5 +33,20 @@ public class Person extends BaseEntity{
     private Set<Comment> comments = new HashSet<>();
 
     private Byte[] avatarImage;
+
+    @Builder
+
+    public Person(Long id, String name, String lastName,
+                  String email, Set<Post> posts, Set<User> users,
+                  Set<Comment> comments, Byte[] avatarImage) {
+        super(id);
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.posts = posts;
+        this.users = users;
+        this.comments = comments;
+        this.avatarImage = avatarImage;
+    }
 
 }

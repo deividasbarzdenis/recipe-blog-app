@@ -3,11 +3,9 @@ package com.debarz.recipeblogapp.repositories.security;
 import com.debarz.recipeblogapp.domain.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByLastName(String lastName);
+/*    Optional<User> findByLastName(String lastName);
 
-    Optional<User> findByLoginName(String lastName);
+    Optional<User> findByLoginName(String lastName);*/
 }
