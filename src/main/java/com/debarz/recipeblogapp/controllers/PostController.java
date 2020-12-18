@@ -52,6 +52,7 @@ public class PostController {
     }
     @GetMapping("/{id}/show")
     public String showById(@PathVariable String id, Model model){
+        // TODO: prideti Exception
         model.addAttribute("post", postService.findById(Long.valueOf(id)));
         return "post/show";
     }
