@@ -45,20 +45,20 @@ public class PersonController {
         model.addAttribute("person", personService.findById(Long.valueOf(id)));
         return PERSON_CREATE_OR_UPDATE_FORM;
     }
-    @PostMapping("/")
+    @PostMapping("/")//+
     public String saveOrUpdate(@ModelAttribute Person person){
         Person savedPerson = personService.save(person);
         return "redirect:/person/" + savedPerson.getId() + "/show";
     }
 
-    @GetMapping("/{id}/show")
+    @GetMapping("/{id}/show")//+
     public String showById(@PathVariable String id, Model model){
         // TODO: prideti Exception
         model.addAttribute("person", personService.findById(Long.valueOf(id)));
         return "user/show";
     }
 
-    @GetMapping("/{id}/delete")
+    @GetMapping("/{id}/delete")//+
     public String deleteById(@PathVariable String id){
         // TODO: prideti Exception
         log.debug("Deleting id: " + id);

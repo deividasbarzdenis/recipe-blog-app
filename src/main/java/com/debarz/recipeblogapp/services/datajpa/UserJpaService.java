@@ -1,6 +1,5 @@
 package com.debarz.recipeblogapp.services.datajpa;
 
-import com.debarz.recipeblogapp.domain.Person;
 import com.debarz.recipeblogapp.domain.security.User;
 import com.debarz.recipeblogapp.repositories.security.UserRepository;
 import com.debarz.recipeblogapp.services.UserService;
@@ -26,12 +25,12 @@ public class UserJpaService implements UserService {
     }
 
     @Override
-    public User save(Person person) {
-        return null;
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public Object findById(Long valueOf) {
-        return null;
+    public Object findById(Long id) {
+        return userRepository.findById(id);
     }
 }

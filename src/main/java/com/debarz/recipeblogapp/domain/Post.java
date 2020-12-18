@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class Post extends BaseEntity{
     private String content;
 
     @Column(nullable = false)
-    private LocalDate creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Person author;
@@ -32,11 +32,11 @@ public class Post extends BaseEntity{
     private Set<Comment> comments = new HashSet<>();
 
     @Builder // lombok anotacija, sukonstroukti objekta su builder() ir build() metodais
-    public Post(Long id, String title, String content, LocalDate creationDate, Person author, Set<Comment> comments) {
+    public Post(Long id, String title, String content, LocalDateTime creationDate, Person author, Set<Comment> comments) {
         super(id);
         this.title = title;
         this.content = content;
-        this.creationDate = LocalDate.now();
+        this.creationDate = creationDate;
         this.author = author;
         this.comments = comments;
     }
