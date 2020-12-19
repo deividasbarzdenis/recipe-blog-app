@@ -24,14 +24,8 @@ public class Person extends BaseEntity{
 
     private String email;
 
-    @OneToMany(mappedBy = "author")
-    private Set<Post> posts = new HashSet<>();
-
     @OneToMany(mappedBy = "person")
     private Set<User> users = new HashSet<>();
-
-    @OneToMany(mappedBy = "author")
-    private Set<Comment> comments = new HashSet<>();
 
     @Lob
     private Byte[] avatarImage;
@@ -39,15 +33,13 @@ public class Person extends BaseEntity{
     @Builder
 
     public Person(Long id, String name, String lastName,
-                  String email, Set<Post> posts, Set<User> users,
-                  Set<Comment> comments, Byte[] avatarImage) {
+                  String email, Set<User> users,
+                  Byte[] avatarImage) {
         super(id);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.posts = posts;
         this.users = users;
-        this.comments = comments;
         this.avatarImage = avatarImage;
     }
 
