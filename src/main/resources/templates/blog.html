@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          crossorigin="anonymous"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <div th:replace="fragments/bootstrapLayout :: bootstrap" th:remove="tag"></div>
 
-    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>Main Blog Page</title>
 </head>
 <body>
+<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
+
 <h1 th:text="'Main Blog Page th'">Main Blog</h1>
+
+<div class="container-fluid">
+    <div class="col-md-2">
+    <h1>All Posts</h1>
+    </div>
+    <div class="col-md-1 col-md-offset-10">
+        <div class="btn btn-default">
+            <a href="#" th:href="@{'/post/new'}" role="button">Add a new post</a>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
