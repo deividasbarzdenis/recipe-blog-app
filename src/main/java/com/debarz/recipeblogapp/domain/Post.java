@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +23,6 @@ import java.util.Set;
 public class Post extends BaseEntity{
 
     // TODO: add messages from property file
-    @Column(name = "title", nullable = false)
     @Length(min = 5, message = "*Your title must have at least 5 characters")
     @NotEmpty(message = "*Please provide title")
     private String title;
@@ -32,9 +31,8 @@ public class Post extends BaseEntity{
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private Date creationDate = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
@@ -44,7 +42,7 @@ public class Post extends BaseEntity{
     private Set<Comment> comments = new HashSet<>();
 
     @Builder // lombok anotacija, sukonstroukti objekta su builder() ir build() metodais
-    public Post(Long id, String title, String content, LocalDateTime creationDate, User author, Set<Comment> comments) {
+    public Post(Long id, String title, String content, Date creationDate, User author, Set<Comment> comments) {
         super(id);
         this.title = title;
         this.content = content;

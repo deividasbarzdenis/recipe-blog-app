@@ -10,7 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -34,7 +34,7 @@ public class Comment extends BaseEntity{
     @Temporal(TemporalType.TIMESTAMP)// insert  both time and date.
     @Column(name = "creation_time", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime creationTime = LocalDateTime.now();
+    private Date creationTime = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)

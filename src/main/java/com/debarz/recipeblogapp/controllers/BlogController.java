@@ -17,8 +17,7 @@ public class BlogController {
     final private PostService postService;
 
     @RequestMapping({"", "blog", "blog.html"})
-    public String getAllPosts(@PageableDefault(size = 5) Pageable pageable, Model model){
-        log.debug("geting to blog controller GetAllPosts");
+    public String getAllPosts(@PageableDefault(size = 6) Pageable pageable, Model model){
         model.addAttribute("posts", postService.getAllPost(pageable));
         return "blog";
     }
