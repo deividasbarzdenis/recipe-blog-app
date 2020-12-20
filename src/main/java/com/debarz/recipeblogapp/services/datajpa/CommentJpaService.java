@@ -16,7 +16,7 @@ public class CommentJpaService implements CommentService {
     private final CommentRepository commentRepository;
 
     @Override
-    public Comment saveComment(Comment comment) {
-        return commentRepository.save(comment);
+    public Comment save(Comment comment) {
+        return commentRepository.saveAndFlush(comment);
     }
 }

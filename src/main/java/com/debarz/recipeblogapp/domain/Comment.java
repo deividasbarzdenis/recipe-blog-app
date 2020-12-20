@@ -1,16 +1,13 @@
 package com.debarz.recipeblogapp.domain;
 
 import com.debarz.recipeblogapp.domain.security.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -19,26 +16,31 @@ import java.time.LocalDateTime;
 @Entity
 public class Comment extends BaseEntity{
 
-
-    private String commentTitle;
-
-    // TODO: prideti validation messages.properties
     @Lob
+    @Column(name = "body", columnDefinition = "TEXT")
     @NotEmpty(message = "*Please write something")
     private String body;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    private User author;
-
-    @Temporal(TemporalType.TIMESTAMP)// insert  both time and date.
-    @Column(name = "creation_time", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime creationTime = LocalDateTime.now();
+    private Date createDate;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @ManyToOne
     @NotNull
     private Post post;
 
+    @ManyToOne
+    @NotNull
+    private User user;
+
+    @Builder
+    public Comment(Long id, String body,
+                   Date createDate, @NotNull Post post, @NotNull User user) {
+        super(id);
+        this.body = body;
+        this.createDate = createDate;
+        this.post = post;
+        this.user = user;
+    }
 }

@@ -1,9 +1,8 @@
 package com.debarz.recipeblogapp.domain.security;
 
 import com.debarz.recipeblogapp.domain.BaseEntity;
-import com.debarz.recipeblogapp.domain.Comment;
-import com.debarz.recipeblogapp.domain.Person;
 import com.debarz.recipeblogapp.domain.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,9 +10,9 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 @Setter
 @Getter
@@ -22,30 +21,38 @@ import java.util.Set;
 @Entity
 public class User extends BaseEntity {
 
-    @NotEmpty(message = "*Please provide your name")
-    private String loginName;
+    @Column(name = "email", unique = true, nullable = false)
+    @Email(message = "*Please provide a valid Email")
+    @NotEmpty(message = "*Please provide an email")
+    private String email;
 
-    // TODO: add message from property file
     @Column(name = "password", nullable = false)
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
+    @JsonIgnore
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    private Set<Role> roles;
+    @Column(name = "username", nullable = false, unique = true)
+    @Length(min = 5, message = "*Your username must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your name")
+    private String username;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Person person;
+    @Column(name = "name")
+    @NotEmpty(message = "*Please provide your name")
+    private String name;
 
-    @OneToMany(mappedBy = "author")
-    private Set<Post> posts = new HashSet<>();
+    @Column(name = "last_name")
+    @NotEmpty(message = "*Please provide your last name")
+    private String lastName;
 
-    @OneToMany(mappedBy = "author")
-    private Set<Comment> comments = new HashSet<>();
+    @Column(name = "active", nullable = false)
+    private int active;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Post> posts;
 
 }

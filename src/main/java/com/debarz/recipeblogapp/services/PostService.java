@@ -1,30 +1,27 @@
 package com.debarz.recipeblogapp.services;
 
-import com.debarz.recipeblogapp.domain.Comment;
 import com.debarz.recipeblogapp.domain.Post;
 import com.debarz.recipeblogapp.domain.security.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import java.util.Set;
+import java.util.Optional;
 
 public interface PostService {
 
-    Page<Post> getAllPost(Pageable pageable);
+    Optional<Post> findForId(Long id);
 
-    Set<Comment> getAllComments();
+    Post save(Post post);
 
-    Post findById(Long aLong);
+    /**
+     * Finds a {@link Page) of {@link Post} of provided user ordered by date
+     */
+    Page<Post> findByUserOrderedByDatePageable(User user, int page);
 
-    Post save(Post object);
-
-    void delete(Post object);
-
-    void deleteById(Long aLong);
-
-    // New methods to improve search and posts ordering
-
+    /**
+     * Finds a {@link Page) of all {@link Post} ordered by date
+     */
     Page<Post> findAllOrderedByDatePageable(int page);
 
-    Page<Post> findByUserOrderedByDatePageable(User user, int page);
+    void delete(Post post);
+
 }

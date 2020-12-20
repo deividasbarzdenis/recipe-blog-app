@@ -1,72 +1,127 @@
 package com.debarz.recipeblogapp.controllers;
 
 import com.debarz.recipeblogapp.domain.Post;
+import com.debarz.recipeblogapp.domain.security.User;
 import com.debarz.recipeblogapp.services.PostService;
+import com.debarz.recipeblogapp.services.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Optional;
 
 @Slf4j
-@RequestMapping("/post")
+@AllArgsConstructor
 @Controller
 public class PostController {
-
-    private static final String POST_CREATE_OR_UPDATE_FORM = "post/newPost";
-
     private final PostService postService;
+    private final UserService userService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
+    @GetMapping("/newPost")
+    public String newPost(Principal principal,
+                          Model model) {
 
-    //Del saugumo
-    @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder) {
-        dataBinder.setDisallowedFields("id");
-    }
+        Optional<User> user = userService.findByUsername(principal.getName());
 
-    @RequestMapping({"", "/"})
-    public String getPosts(){
-        return "post";
-    }
+        if (user.isPresent()) {
+            Post post = new Post();
+            post.setUser(user.get());
 
-    @GetMapping("/new")//kurimo forma posto
-    public String initCreationForm(Model model) {
-        model.addAttribute("post", Post.builder().build());
-        return POST_CREATE_OR_UPDATE_FORM;
-    }
+            model.addAttribute("post", post);
 
-    @PostMapping("/")
-    public String processCreationForm(@ModelAttribute Post post, BindingResult result) {
-        if (result.hasErrors()) {
-            return POST_CREATE_OR_UPDATE_FORM;
+            return "/postForm";
+
         } else {
-            log.debug("saving the Post to DB:" + post.getId());
-            Post savePost =  postService.save(post);
-            log.debug("Object saved");
-            return "redirect:/post/"+savePost.getId()+"/show";
+            return "/error";
         }
     }
-    @GetMapping("/{id}/show")
-    public String showById(@PathVariable String id, Model model){
-        // TODO: prideti Exception
-        model.addAttribute("post", postService.findById(Long.valueOf(id)));
-        return "post/show";
+
+    @PostMapping("/newPost")
+    public String createNewPost(@Valid Post post,
+                                BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "/postForm";
+        } else {
+            postService.save(post);
+            return "redirect:/blog/" + post.getUser().getUsername();
+        }
     }
-    @GetMapping("/{id}/delete")
-    public String deleteById(@PathVariable String id){
-        // TODO: prideti Exception
-        log.debug("Deleting id: " + id);
-        postService.deleteById(Long.valueOf(id));
-        return "redirect:/";
+
+    @GetMapping("/editPost/{id}")
+    public String editPostWithId(@PathVariable Long id,
+                                 Principal principal,
+                                 Model model) {
+
+        Optional<Post> optionalPost = postService.findForId(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+
+            if (isPrincipalOwnerOfPost(principal, post)) {
+                model.addAttribute("post", post);
+                return "/postForm";
+            } else {
+                return "/403";
+            }
+
+        } else {
+            return "/error";
+        }
     }
-    @GetMapping("/{id}/update")
-    public String updatePost(@PathVariable String id, Model model){
-        // TODO: prideti Exception
-        model.addAttribute("person", postService.findById(Long.valueOf(id)));
-        return POST_CREATE_OR_UPDATE_FORM;
+
+    @GetMapping("/post/{id}")
+    public String getPostWithId(@PathVariable Long id,
+                                Principal principal,
+                                Model model) {
+
+        Optional<Post> optionalPost = postService.findForId(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+
+            model.addAttribute("post", post);
+            if (isPrincipalOwnerOfPost(principal, post)) {
+                model.addAttribute("username", principal.getName());
+            }
+
+            return "/post";
+
+        } else {
+            return "/error";
+        }
+    }
+
+    @DeleteMapping("/post/{id}")
+    public String deletePostWithId(@PathVariable Long id,
+                                   Principal principal) {
+
+        Optional<Post> optionalPost = postService.findForId(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+
+            if (isPrincipalOwnerOfPost(principal, post)) {
+                postService.delete(post);
+                return "redirect:/home";
+            } else {
+                return "/403";
+            }
+
+        } else {
+            return "/error";
+        }
+    }
+
+    private boolean isPrincipalOwnerOfPost(Principal principal, Post post) {
+        return principal != null && principal.getName().equals(post.getUser().getUsername());
     }
 }

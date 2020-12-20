@@ -4,7 +4,6 @@ import com.debarz.recipeblogapp.domain.Comment;
 
 public interface CommentService {
 
-    Comment saveComment(Comment comment);
-
+    Comment save(Comment comment);
 
 }

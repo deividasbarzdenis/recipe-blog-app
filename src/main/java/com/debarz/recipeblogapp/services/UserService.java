@@ -2,13 +2,13 @@ package com.debarz.recipeblogapp.services;
 
 import com.debarz.recipeblogapp.domain.security.User;
 
-import java.util.Set;
+import java.util.Optional;
 
 public interface UserService{
 
-    Set<User> getAllUsers();
+    Optional<User> findByUsername(String username);
 
-    User save(User person);
+    Optional<User> findByEmail(String email);
 
-    Object findById(Long valueOf);
+    User save(User user);
 }
