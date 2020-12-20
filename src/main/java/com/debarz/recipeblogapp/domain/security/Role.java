@@ -1,9 +1,14 @@
 package com.debarz.recipeblogapp.domain.security;
 
 import com.debarz.recipeblogapp.domain.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Setter
@@ -15,13 +20,7 @@ public class Role extends BaseEntity {
 
     private String name;
     
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
     private Set<User> users;
 
-    @Singular
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JoinTable(name = "role_authority",
-            joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    private Set<Authority> authorities;
 }

@@ -1,6 +1,5 @@
 package com.debarz.recipeblogapp.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +12,20 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
+    public BaseEntity(Long id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    public boolean isNew() {
+        return this.id == null;
+    }
 
 }

@@ -4,10 +4,7 @@ import com.debarz.recipeblogapp.domain.BaseEntity;
 import com.debarz.recipeblogapp.domain.Comment;
 import com.debarz.recipeblogapp.domain.Person;
 import com.debarz.recipeblogapp.domain.Post;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -19,6 +16,7 @@ import java.util.Set;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 public class User extends BaseEntity {
 
@@ -27,7 +25,6 @@ public class User extends BaseEntity {
 
     // TODO: add message from property file
     @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
     private String password;
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -44,6 +41,18 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "author")
     private Set<Comment> comments = new HashSet<>();
+
+    @Builder.Default
+    private Boolean accountNonExpired = true;
+
+    @Builder.Default
+    private Boolean accountNonLocked = true;
+
+    @Builder.Default
+    private Boolean credentialNonExpired = true;
+
+    @Builder.Default
+    private Boolean enabled = true;
 
 
 

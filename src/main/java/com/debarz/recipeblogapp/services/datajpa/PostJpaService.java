@@ -1,13 +1,11 @@
 package com.debarz.recipeblogapp.services.datajpa;
 
 import com.debarz.recipeblogapp.domain.Post;
-import com.debarz.recipeblogapp.domain.security.User;
 import com.debarz.recipeblogapp.repositories.PostRepository;
 import com.debarz.recipeblogapp.services.PostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +41,7 @@ public class PostJpaService implements PostService {
         postRepository.deleteById(aLong);
     }
 
-    @Override
+/*    @Override
     public Page<Post> findByUserOrderedByDatePageable(User user, int page) {
         return postRepository.findByUserOrderByCreateDateDesc(user, PageRequest.of(subtractPageByOne(page), 6));
     }
@@ -55,6 +53,6 @@ public class PostJpaService implements PostService {
 
     private int subtractPageByOne(int page){
         return (page < 1) ? 0 : page - 1;
-    }
+    }*/
 
 }

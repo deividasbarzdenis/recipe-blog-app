@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +34,6 @@ public class Post extends BaseEntity{
     private Date creationDate = new Date();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull
     private User author;
 
     @OneToMany(mappedBy="post",cascade = CascadeType.REMOVE)

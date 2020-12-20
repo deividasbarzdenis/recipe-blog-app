@@ -1,7 +1,6 @@
 package com.debarz.recipeblogapp.services;
 
 import com.debarz.recipeblogapp.domain.Post;
-import com.debarz.recipeblogapp.domain.security.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,7 +18,7 @@ public interface PostService {
 
     // New methods to improve search and posts ordering
 
-    Page<Post> findAllOrderedByDatePageable(int page);
+/*    Page<Post> findAllOrderedByDatePageable(int page);
 
-    Page<Post> findByUserOrderedByDatePageable(User user, int page);
+    Page<Post> findByUserOrderedByDatePageable(User user, int page);*/
 }
