@@ -1,6 +1,5 @@
 package com.debarz.recipeblogapp.domain;
 
-import com.debarz.recipeblogapp.domain.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

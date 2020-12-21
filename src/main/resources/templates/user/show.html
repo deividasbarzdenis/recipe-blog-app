@@ -8,20 +8,20 @@
 <body>
 <h1 th:text = "'Show Person Form th'"></h1>
 <h1>Result</h1>
-<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Person"*/-->
-<p th:text="'id: ' + ${person.id}"></p>
-<p th:text="'content: ' + ${person.name}"></p>
-<p th:text="'content: ' + ${person.lastName}"></p>
-<p th:text="'content: ' + ${person.email}"></p>
+<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
+<p th:text="'id: ' + ${user.id}"></p>
+<p th:text="'content: ' + ${user.username}"></p>
+<p th:text="'content: ' + ${user.lastName}"></p>
+<p th:text="'content: ' + ${user.email}"></p>
 
 <div class="col-md-6">
     <img src="../images/avatar"
-         th:src="@{'/person/' + ${person.id} + '/personImage'}"
+         th:src="@{'/user/' + ${user.id} + '/userImage'}"
          width="200" height="200">
 </div>
 <div class="col-md-1">
     <a class="btn btn-default" href="#"
-       th:href="@{'/person/' + ${person.id} + '/image'}" role="button">Change Image</a>
+       th:href="@{'/user/' + ${user.id} + '/image'}" role="button">Change Image</a>
 </div>
 
 <a href="/person/new">Submit another message</a>

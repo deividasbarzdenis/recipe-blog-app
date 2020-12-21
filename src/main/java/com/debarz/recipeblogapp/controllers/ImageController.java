@@ -1,8 +1,8 @@
 package com.debarz.recipeblogapp.controllers;
 
-import com.debarz.recipeblogapp.domain.Person;
+import com.debarz.recipeblogapp.domain.User;
 import com.debarz.recipeblogapp.services.ImageService;
-import com.debarz.recipeblogapp.services.PersonService;
+import com.debarz.recipeblogapp.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -25,27 +25,27 @@ import java.io.InputStream;
 public class ImageController {
 
     private final ImageService imageService;
-    private final PersonService personService;
+    private final UserService userService;
 
-    @GetMapping("person/{id}/image")
+    @GetMapping("user/{id}/image")
     public String showUploadForm(@PathVariable String id, Model model){
-        model.addAttribute("person", personService.findById(Long.valueOf(id)));
+        model.addAttribute("user", userService.findById(Long.valueOf(id)));
         return "user/imageuploadform";
     }
 
-    @PostMapping("person/{id}/image")
+    @PostMapping("user/{id}/image")
     public String handleImagePost(@PathVariable String id,
                                   @RequestParam("imagefile") MultipartFile file){
 
         imageService.saveImageFile(Long.valueOf(id), file);
 
-        return "redirect:/person/" + id + "/show";
+        return "redirect:/user/" + id + "/show";
     }
 
-    @GetMapping("person/{id}/personImage")
+    @GetMapping("user/{id}/personImage")
     public void renderImageFromDB(@PathVariable String id,
                                   HttpServletResponse response) throws IOException {
-        Person person = personService.findById(Long.valueOf(id));
+        User person = userService.findById(Long.valueOf(id));
         if (person.getAvatarImage() != null) {
             byte[] byteArray = new byte[person.getAvatarImage().length];
             int i = 0;

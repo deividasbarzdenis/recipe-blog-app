@@ -1,26 +1,30 @@
 package com.debarz.recipeblogapp.domain.security;
 
 import com.debarz.recipeblogapp.domain.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements GrantedAuthority {
 
-    private String name;
-    
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
-    private Set<User> users;
+    @Column(name = "role_name")
+    private String roleName;
 
+    @Builder
+    public Role(Long id, String role) {
+        super(id);
+        this.roleName = role;
+    }
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_"+ roleName;
+    }
 }

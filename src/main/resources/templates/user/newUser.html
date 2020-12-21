@@ -10,14 +10,15 @@
 <h1 th:text="'New Person th form'">New Person</h1>
 
 <h1>Form new Person</h1>
-<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Person"*/-->
-<form action="#" th:action="@{/person/}" th:object="${person}" method="post">
-    <!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Person"*/-->
+<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
+<form action="#" th:action="@{/user/}" th:object="${user}" method="post">
+    <!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
     <input type="hidden" th:field="*{id}"/>
-    <p>Name: <input type="text" th:field="*{name}" /></p>
-    <p>Last Name: <input type="text" th:field="*{lastName}" /></p>
-    <p>Email: <input type="text" th:field="*{email}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <p>Name: <input type="text" th:field="*{username}"/></p>
+    <p>Last Name: <input type="text" th:field="*{lastName}"/></p>
+    <p>Email: <input type="text" th:field="*{email}"/></p>
+    <p>Email: <input type="password" th:field="*{password}"/></p>
+    <p><input type="submit" value="Submit"><input type="reset" value="Reset"/></p>
 </form>
 </body>
 </html>

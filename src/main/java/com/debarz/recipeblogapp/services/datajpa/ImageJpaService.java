@@ -1,7 +1,7 @@
 package com.debarz.recipeblogapp.services.datajpa;
 
-import com.debarz.recipeblogapp.domain.Person;
-import com.debarz.recipeblogapp.repositories.PersonRepository;
+import com.debarz.recipeblogapp.domain.User;
+import com.debarz.recipeblogapp.repositories.UserRepository;
 import com.debarz.recipeblogapp.services.ImageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +16,13 @@ import java.io.IOException;
 @Service
 public class ImageJpaService implements ImageService {
 
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
     public void saveImageFile(Long id, MultipartFile file) {
         try {
-            Person person = personRepository.findById(id).get();
+            User user = userRepository.findById(id).get();
 
             Byte[] byteObjects = new Byte[file.getBytes().length];
 
@@ -32,9 +32,9 @@ public class ImageJpaService implements ImageService {
                 byteObjects[i++] = b;
             }
 
-            person.setAvatarImage(byteObjects);
+            user.setAvatarImage(byteObjects);
 
-            personRepository.save(person);
+            userRepository.save(user);
         } catch (IOException e) {
             //todo handle better
             log.error("Error occurred", e);

@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Person"*/-->
+<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
-                                       th:action="@{'/person/' + ${person.getId()} + '/image'}">
+                                       th:action="@{'/user/' + ${user.getId()} + '/image'}">
                                     <label class="control-label">Select File</label>
                                     <input id="imagefile" name="imagefile" type="file" class="file">
                                     <button type="submit" class="btn btn-primary">Submit</button>

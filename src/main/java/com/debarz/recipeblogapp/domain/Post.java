@@ -1,6 +1,5 @@
 package com.debarz.recipeblogapp.domain;
 
-import com.debarz.recipeblogapp.domain.security.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +32,7 @@ public class Post extends BaseEntity{
     @CreationTimestamp
     private Date creationDate = new Date();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade =CascadeType.ALL)
     private User author;
 
     @OneToMany(mappedBy="post",cascade = CascadeType.REMOVE)

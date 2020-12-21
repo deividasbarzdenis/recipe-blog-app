@@ -1,32 +1,31 @@
 package com.debarz.recipeblogapp.controllers;
 
-import com.debarz.recipeblogapp.domain.Person;
-import com.debarz.recipeblogapp.services.PersonService;
+import com.debarz.recipeblogapp.domain.User;
+import com.debarz.recipeblogapp.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
-@RequestMapping("/person")
+@RequestMapping("/user")
 @Controller
-public class PersonController {
+public class UserController {
 
     private static final String PERSON_CREATE_OR_UPDATE_FORM = "user/newUser";
 
-    private final PersonService personService;
+    private final UserService userService;
 
-    public PersonController(PersonService personService) {
-        this.personService = personService;
+    public UserController(UserService personService) {
+        this.userService = personService;
     }
 
-    // TODO: Butina prideti
-  /*  //Del saugumo
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
-    }*/
+    }
 
 
     @RequestMapping({"", "/"})
@@ -36,25 +35,25 @@ public class PersonController {
 
     @GetMapping("/new")//kurimo forma posto
     public String newPerson(Model model) {
-        model.addAttribute("person", Person.builder().build());
+        model.addAttribute("user", User.builder().build());
         return PERSON_CREATE_OR_UPDATE_FORM;
     }
     @GetMapping("/{id}/update")
     public String updatePerson(@PathVariable String id, Model model){
         // TODO: prideti Exception
-        model.addAttribute("person", personService.findById(Long.valueOf(id)));
+        model.addAttribute("user", userService.findById(Long.valueOf(id)));
         return PERSON_CREATE_OR_UPDATE_FORM;
     }
     @PostMapping("/")//+
-    public String saveOrUpdate(@ModelAttribute Person person){
-        Person savedPerson = personService.save(person);
-        return "redirect:/person/" + savedPerson.getId() + "/show";
+    public String saveOrUpdate(@ModelAttribute User person){
+        User savedUser = userService.save(person);
+        return "redirect:/user/" + savedUser.getId() + "/show";
     }
 
     @GetMapping("/{id}/show")//+
     public String showById(@PathVariable String id, Model model){
         // TODO: prideti Exception
-        model.addAttribute("person", personService.findById(Long.valueOf(id)));
+        model.addAttribute("user", userService.findById(Long.valueOf(id)));
         return "user/show";
     }
 
@@ -62,7 +61,7 @@ public class PersonController {
     public String deleteById(@PathVariable String id){
         // TODO: prideti Exception
         log.debug("Deleting id: " + id);
-        personService.deleteById(Long.valueOf(id));
+        userService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }
 

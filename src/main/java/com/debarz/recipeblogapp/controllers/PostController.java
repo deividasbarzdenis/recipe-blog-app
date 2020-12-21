@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Slf4j
 @RequestMapping("/post")
 @Controller
@@ -34,17 +36,18 @@ public class PostController {
     }
 
     @GetMapping("/new")//kurimo forma posto
-    public String initCreationForm(Model model) {
-        model.addAttribute("post", Post.builder().build());
+    public String initCreationForm(Principal principal, Model model) {
+
+        model.addAttribute("post", Post.builder()
+                .build());
         return POST_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/")
-    public String processCreationForm(@ModelAttribute Post post, BindingResult result) {
+    public String processCreationForm(@ModelAttribute Post post, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return POST_CREATE_OR_UPDATE_FORM;
         } else {
-            log.debug("saving the Post to DB:" + post.getId());
             Post savePost =  postService.save(post);
             log.debug("Object saved");
             return "redirect:/post/"+savePost.getId()+"/show";
