@@ -1,9 +1,6 @@
 package com.debarz.recipeblogapp.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -40,4 +37,13 @@ public class Comment extends BaseEntity{
     @NotNull
     private Post post;
 
+    @Builder
+    public Comment(Long id, String commentTitle, @NotEmpty(message = "*Please write something") String body, User author, Date creationTime, @NotNull Post post) {
+        super(id);
+        this.commentTitle = commentTitle;
+        this.body = body;
+        this.author = author;
+        this.creationTime = creationTime;
+        this.post = post;
+    }
 }

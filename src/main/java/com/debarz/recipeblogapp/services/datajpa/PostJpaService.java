@@ -22,7 +22,7 @@ public class PostJpaService implements PostService {
     }
 
     @Override
-    public Post findById(Long aLong) {
+    public Post findById(Long aLong){
         return postRepository.findById(aLong).orElse(null);
     }
 

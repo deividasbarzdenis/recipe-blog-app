@@ -5,15 +5,59 @@
     <link th:href="@{../css/style.css}" rel="stylesheet" />
     <title>Post Show</title>
 </head>
-<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
+
 <body>
-<h1 th:text="'Post Show th'">Post Show</h1>
-<h1>Result</h1>
-<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Post"*/-->
-<p th:text="'id: ' + ${post.id}"></p>
-<p th:text="'content: ' + ${post.title}"></p>
-<p th:text="'content: ' + ${post.content}"></p>
-<p th:text="'content: ' + ${post.getCreationDate()}"></p>
-<a href="/post/new">Submit another message</a>
+<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
+
+<!--<h1 th:text="'Post Show th'">Post Show</h1>-->
+
+<!--<h1>Result</h1>-->
+<!--&lt;!&ndash;/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.Post"*/&ndash;&gt;-->
+<!--<p th:text="'id: ' + ${post.id}"></p>-->
+<!--<p th:text="'content: ' + ${post.title}"></p>-->
+<!--<p th:text="'content: ' + ${post.content}"></p>-->
+<!--<p th:text="'content: ' + ${post.getCreationDate()}"></p>-->
+<!--<a href="/post/new">Submit another message</a>-->
+
+<!--Post-->
+<div class="jumbotron">
+    <h1 th:text="${post.title}">Title</h1>
+    <div th:text="'Created: ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy')} + ' by '">Created by</div>
+    <div><a th:text="${post.author.username}" th:href="@{'/blog/' + ${post.author.username}}">User</a></div>
+    <h3 th:text="${post.content}">Body</h3>
+    <!--Only show these buttons if the user is the owner of post-->
+    <div sec:authorize="isAuthenticated()" th:if="${username}">
+        <div class="row">
+            <a th:href="@{'/editPost/{id}'(id=${post.id})'/show'}" class="col-md-2">
+                <button type="button" class="btn btn-primary btn-block" th:text="Edit">Edit</button>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<h2>Comments:</h2>
+
+<!--Comments-->
+<div class="well" th:each="comment : ${post.comments}">
+    <h3 th:text="${comment.body}">Body</h3>
+    <div th:text="'Created: ' + ${#dates.format(comment.creationTime, 'dd-MMM-yyyy')} + ' by '">
+        Created by
+    </div>
+    <div><a th:text="${comment.author.username}" th:href="@{'/blog/' + ${comment.author.username}}">User</a>
+    </div>
+</div>
+
+<!--Leave a comment button-->
+<!--Only if authenticated-->
+<div sec:authorize="isAuthenticated()">
+    <div class="row">
+        <a th:href="@{'/commentPost/{id}'(id=${post.id})}" class="col-md-2">
+            <button type="button" class="btn btn-primary btn-block" th:text="Comment">Comment</button>
+        </a>
+    </div>
+</div>
+</div>
+<!-- /.container -->
 </body>
 </html>

@@ -42,7 +42,7 @@ public class ImageController {
         return "redirect:/user/" + id + "/show";
     }
 
-    @GetMapping("user/{id}/personImage")
+    @GetMapping("user/{id}/userImage")
     public void renderImageFromDB(@PathVariable String id,
                                   HttpServletResponse response) throws IOException {
         User person = userService.findById(Long.valueOf(id));

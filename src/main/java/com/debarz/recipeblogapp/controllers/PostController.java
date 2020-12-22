@@ -54,7 +54,7 @@ public class PostController {
         }
     }
     @GetMapping("/{id}/show")
-    public String showById(@PathVariable String id, Model model){
+    public String showById(@PathVariable String id, Model model) throws Exception {
         // TODO: prideti Exception
         model.addAttribute("post", postService.findById(Long.valueOf(id)));
         return "post/show";
@@ -67,9 +67,9 @@ public class PostController {
         return "redirect:/";
     }
     @GetMapping("/{id}/update")
-    public String updatePost(@PathVariable String id, Model model){
+    public String updatePost(@PathVariable String id, Model model) throws Exception {
         // TODO: prideti Exception
-        model.addAttribute("person", postService.findById(Long.valueOf(id)));
+        model.addAttribute("post", postService.findById(Long.valueOf(id)));
         return POST_CREATE_OR_UPDATE_FORM;
     }
 }

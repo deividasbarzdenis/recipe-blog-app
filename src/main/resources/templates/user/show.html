@@ -6,9 +6,8 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/usershow.css}">
     <title>Show User</title>
 </head>
-<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
-
 <body>
+<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
 <!--<h1 th:text = "'Show Person Form th'"></h1>
 <h1>Result</h1>
 &lt;!&ndash;/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/&ndash;&gt;
@@ -37,7 +36,7 @@
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
-                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" th:src="@{'/user/' + ${user.id} + '/avatarImage'}" alt="not found"></div>
+                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" th:src="@{'/user/' + ${user.id} + '/userImage'}" alt="not found"></div>
                                 <h6 th:text="${user.username}" class="f-w-600">Name</h6>
                                 <p>-------------</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
