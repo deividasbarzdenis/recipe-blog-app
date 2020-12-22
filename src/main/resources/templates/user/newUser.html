@@ -7,18 +7,41 @@
 
 </head>
 <body>
-<h1 th:text="'New Person th form'">New Person</h1>
+<section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
 
-<h1>Form new Person</h1>
-<!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
-<form action="#" th:action="@{/user/}" th:object="${user}" method="post">
-    <!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
-    <input type="hidden" th:field="*{id}"/>
-    <p>Name: <input type="text" th:field="*{username}"/></p>
-    <p>Last Name: <input type="text" th:field="*{lastName}"/></p>
-    <p>Email: <input type="text" th:field="*{email}"/></p>
-    <p>Email: <input type="password" th:field="*{password}"/></p>
-    <p><input type="submit" value="Submit"><input type="reset" value="Reset"/></p>
-</form>
+                    <div id="sign">
+                        <!--/*@thymesVar id="person" type="com.debarz.recipeblogapp.domain.User"*/-->
+                        <form action="#" th:action="@{/user/}" th:object="${user}" method="post">
+                            <h2>Registration</h2>
+                            <input type="hidden" th:field="*{id}"/>
+                            <div class="form-group">
+                                <input th:field="*{username}" type="text" class="form-control" placeholder="Username"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <input th:field="*{lastName}" type="text" class="form-control" placeholder="Lastname"
+                                       required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" th:field="*{password}" class="form-control"
+                                       placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" th:field="*{email}" class="form-control" placeholder="Email"
+                                       required>
+                            </div>
+
+                            <button type="submit" value="Submit" class="btn btn-dark">Submit</button>
+                        </form>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

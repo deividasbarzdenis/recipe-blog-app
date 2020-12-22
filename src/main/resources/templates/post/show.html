@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="fragments/bootstrapLayout :: bootstrap" th:remove="tag"></div>
-
+    <link th:href="@{../css/style.css}" rel="stylesheet" />
     <title>Post Show</title>
 </head>
+<div th:include="fragments/navBar :: navbar" th:remove="tag"></div>
 <body>
 <h1 th:text="'Post Show th'">Post Show</h1>
 <h1>Result</h1>

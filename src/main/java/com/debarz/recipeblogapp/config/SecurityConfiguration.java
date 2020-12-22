@@ -26,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/h2/**", "/login", "/", "/user/**").permitAll()
+                .antMatchers("/h2/**", "/login/**", "/", "/user/**", "/css/**","/.js", ".min.js", "/resources/**", "/static/**", "/js/**", "/images/**").permitAll()
                 .antMatchers( ("/post/new"), ("/{id}/delete"), ("/{id}/update")).authenticated()
                 .anyRequest().authenticated()
                 .and()
@@ -44,6 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().ignoringAntMatchers("/h2/**");
         http.headers().frameOptions().sameOrigin();
+
+
     }
 
     /*@Override
