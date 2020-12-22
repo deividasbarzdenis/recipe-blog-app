@@ -7,10 +7,17 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 <div class="navbar-nav">
                     <div class="navbar-header">
-                    <a class="nav-item nav-link active" th:href="@{/}">Home</a>
-                    <a class="nav-item nav-link active" th:href="@{'/user/new'}">Sign Up</a>
-                    <a class="nav-item nav-link active" th:href="@{'/login'}">Sign in</a>
-                    <a class="nav-item nav-link active" href="#">Contact</a>
+                        <a class="nav-item nav-link active" th:href="@{/}" th:text="#{home}">Home</a>
+                        <a class="nav-item nav-link active" th:href="@{'/user/new'}" th:text="#{signup}">Sign Up</a>
+                        <a class="nav-item nav-link active" th:href="@{'/login'}" th:text="#{signin}">Sign in</a>
+                        <a class="nav-item nav-link active" href="#" th:text="#{contact}">Contact</a>
+                        <span th:text="#{lang.change}"></span>:
+                        <select id="locales">
+                            <option value=""></option>
+                            <option value="en" th:text="#{lang.eng}"></option>
+                            <option value="fr" th:text="#{lang.lt}"></option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

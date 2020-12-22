@@ -67,7 +67,7 @@ public class PostController {
         return "redirect:/";
     }
     @GetMapping("/{id}/update")
-    public String updatePost(@PathVariable String id, Model model) throws Exception {
+    public String updatePost(@PathVariable String id, Model model) {
         // TODO: prideti Exception
         model.addAttribute("post", postService.findById(Long.valueOf(id)));
         return POST_CREATE_OR_UPDATE_FORM;
